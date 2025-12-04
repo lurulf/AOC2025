@@ -1,0 +1,34 @@
+# Standardvalg
+* text=auto
+
+# Tekstfiler som skal normaliseres
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.css text eol=lf
+*.csv text eol=lf
+*.html text eol=lf
+*.java text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.nft text eol=lf
+*.ora text eol=lf
+*.pkb text eol=lf
+*.pks text eol=lf
+*.pl text eol=lf
+*.properties text eol=lf
+*.ps1 text eol=crlf
+*.py text eol=lf
+*.sh text eol=lf
+*.sql text eol=lf
+*.txt text eol=lf
+*.xml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+
+# Binærfiler (binary betyr -text -diff)
+*.class binary
+*.gif binary
+*.jar binary
+*.jpg binary
+*.png binary

@@ -1,0 +1,59 @@
+#EditorConfig er fantastisk: https://EditorConfig.org
+
+# Toppnivå EditorConfig fil
+root = true
+
+# Standardverdier
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = false
+trim_trailing_whitespace = true
+
+# csv
+[*.csv]
+insert_final_newline = false
+
+# Markdown
+[*.md]
+indent_size = 4
+insert_final_newline = true
+
+# Makefile (må visstnok ha tab)
+[Makefile]
+indent_style = tab
+indent_size = 8
+
+# Perl
+[*.pl]
+indent_style = space
+indent_size = 4
+insert_final_newline = false
+
+# Python
+[*.py]
+indent_style = space
+indent_size = 4
+insert_final_newline = false
+
+# Shell
+[*.sh]
+insert_final_newline = true
+
+# SQL
+[*.{sql,pkb,pks}]
+indent_style = space
+indent_size = 4
+insert_final_newline = true
+
+# Yaml
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+insert_final_newline = false
+
+# Windooze
+[*.{bat,cmd,ps1}]
+end_of_line = crlf
