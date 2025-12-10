@@ -11,12 +11,12 @@ ferskslutt=-10
 while IFS= read -r data; do
   IFS=- read -r -a fersk <<<"${data}"
   # echo "grense ${fersk[0]} til ${fersk[1]}"
-  if ((fersk[0]>ferskslutt+1)); then
-    ingrediensteller=$((ingrediensteller+1))
+  if ((fersk[0] > ferskslutt + 1)); then
+    ingrediensteller=$((ingrediensteller + 1))
     ferskeingredienser[ingrediensteller]="${data}"
     ferskstart="${fersk[0]}"
     ferskslutt="${fersk[1]}"
-  elif ((fersk[1]<=ferskslutt)); then
+  elif ((fersk[1] <= ferskslutt)); then
     # echo "${fersk[1]}<=$((ferskslutt))"
     continue
   else
@@ -30,9 +30,9 @@ done < <(grep -- '-' "${inndatafil}" | sort -n)
 # printf "%s\n" "${ferskeingredienser[@]}"
 
 ingredienser=0
-for ((teller=0;teller<=ingrediensteller;teller++)); do
+for ((teller = 0; teller <= ingrediensteller; teller++)); do
   IFS=- read -r -a fersk <<<"${ferskeingredienser[teller]}"
   echo "${teller}:${ferskeingredienser[teller]}"
-  ingredienser=$((ingredienser+fersk[1]-fersk[0]+1))
+  ingredienser=$((ingredienser + fersk[1] - fersk[0] + 1))
 done
 echo "${ingredienser}"

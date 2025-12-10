@@ -19,14 +19,14 @@ while IFS= read -r batteribank; do
   # kb4 = kraftigste posisjonert etter kb2
   kb4=-1
   kb4posisjon=-1
-  for ((posisjon=0;posisjon<lengde; posisjon++)); do
+  for ((posisjon = 0; posisjon < lengde; posisjon++)); do
     batteri="${batteribank:posisjon:1}"
-    if ((batteri>kb1)); then
+    if ((batteri > kb1)); then
       kb2="${kb1}"
       kb2posisjon="${kb1posisjon}"
       kb1="${batteri}"
       kb1posisjon="${posisjon}"
-      if ((posisjon>kb2posisjon)); then
+      if ((posisjon > kb2posisjon)); then
         kb4="${kb1}"
         kb4posisjon="${kb1posisjon}"
       else
@@ -36,16 +36,16 @@ while IFS= read -r batteribank; do
       kb3=-1
       kb3posisjon=-1
     else
-      if ((batteri>kb3)); then
+      if ((batteri > kb3)); then
         kb3="${batteri}"
         kb3posisjon="${posisjon}"
       fi
-      if ((batteri>kb2)); then
+      if ((batteri > kb2)); then
         kb2="${batteri}"
         kb2posisjon="${posisjon}"
         kb4=-1
         kb4posisjon=-1
-      elif ((batteri>kb4)); then
+      elif ((batteri > kb4)); then
         kb4="${batteri}"
         kb4posisjon="${posisjon}"
       fi
@@ -57,7 +57,7 @@ while IFS= read -r batteribank; do
     jolt="${kb1}${kb3}"
   fi
   echo "kb1=${kb1}, kb1posisjon=${kb1posisjon}  kb2=${kb2}, kb2posisjon=${kb2posisjon}  kb3=${kb3}, kb3posisjon=${kb3posisjon}  kb4=${kb4}, kb4posisjon=${kb4posisjon}"
-  sum=$((sum+jolt))
+  sum=$((sum + jolt))
   echo "jolt=${jolt}, sum=${sum}"
-done < input_aoc3.txt
+done <input_aoc3.txt
 echo "${sum}"

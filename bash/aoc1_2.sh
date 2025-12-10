@@ -9,7 +9,7 @@ while IFS= read -r data; do
   printf "%-5s: %-5s " "${linje}" "${data}"
   mengde="${data:1}"
   # printf "%-5s " "${mengde}"
-  teller=$((teller + mengde/100))
+  teller=$((teller + mengde / 100))
   mengde=$((mengde % 100))
   # printf "%5s " "${posisjon}"
   case "${data:0:1}" in
@@ -28,19 +28,19 @@ while IFS= read -r data; do
   esac
   printf " %2s = %-4s " "${mengde}" "${posisjon}"
   if ((posisjon < 0)); then
-    if ((startposisjon>0)); then
-      teller=$((teller+1))
+    if ((startposisjon > 0)); then
+      teller=$((teller + 1))
     fi
-    posisjon=$((posisjon+100))
+    posisjon=$((posisjon + 100))
   elif ((posisjon > 99)); then
-    teller=$((teller+1))
+    teller=$((teller + 1))
     posisjon=$((posisjon % 100))
   elif ((posisjon == 0)); then
-    teller=$((teller+1))
+    teller=$((teller + 1))
   fi
   # printf "==> %-5s " "${posisjon}"
   # printf "%-5s\n" "${teller}"
-  linje=$((linje+1))
+  linje=$((linje + 1))
   startposisjon="${posisjon}"
-done < input_aoc1.txt
+done <input_aoc1.txt
 echo "nuller: ${teller}"

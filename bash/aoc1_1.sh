@@ -26,15 +26,15 @@ while IFS= read -r data; do
   esac
   printf " %2s = %-4s " "${mengde}" "${posisjon}"
   if ((posisjon < 0)); then
-    posisjon=$((posisjon+100))
+    posisjon=$((posisjon + 100))
   else
     posisjon=$((posisjon % 100))
   fi
   # printf "==> %-5s " "${posisjon}"
   if ((posisjon == 0)); then
-    teller=$((teller+1))
+    teller=$((teller + 1))
   fi
   # printf "%-5s\n" "${teller}"
-  linje=$((linje+1))
-done < input_aoc1.txt
+  linje=$((linje + 1))
+done <input_aoc1.txt
 echo "nuller: ${teller}"
