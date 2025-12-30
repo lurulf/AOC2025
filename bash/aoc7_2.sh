@@ -33,4 +33,3 @@ straale() {
 }
 
 straale "${startx}" 0
-
