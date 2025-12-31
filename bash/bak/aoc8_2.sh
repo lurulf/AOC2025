@@ -2,18 +2,22 @@
 # shellcheck disable=SC2312
 set -eufo pipefail
 inndatafil="./input_aoc8.txt"
-antall=1000
 
 mapfile -t punkter <"${inndatafil}"
 
 declare -a kretsmedlem
 declare -a kretsmedlemmer
 makskretser=-1
+antallkretser=0
+punkterikretser=0
+allepunkter="${#punkter[@]}"
+
 for ((t = 0; t < ${#punkter[@]}; t++)); do
   kretsmedlem[t]=-1
   kretsmedlemmer[t]=""
 done
 
+teller=0
 while IFS= read -r avstand; do
   IFS=, read -r -a data <<<"${avstand}"
   kd1="${kretsmedlem[data[1]]}"
@@ -23,12 +27,16 @@ while IFS= read -r avstand; do
     kretsmedlem[data[1]]="${makskretser}"
     kretsmedlem[data[2]]="${makskretser}"
     kretsmedlemmer[makskretser]="${data[1]},${data[2]}"
+    antallkretser=$((antallkretser + 1))
+    punkterikretser=$((punkterikretser + 2))
   elif ((kd1 < 0)); then
     kretsmedlem[data[1]]="${kd2}"
     kretsmedlemmer[kd2]+=",${data[1]}"
+    punkterikretser=$((punkterikretser + 1))
   elif ((kretsmedlem[data[2]] < 0)); then
     kretsmedlem[data[2]]="${kd1}"
     kretsmedlemmer[kd1]+=",${data[2]}"
+    punkterikretser=$((punkterikretser + 1))
   else
     if ((kd1 != kd2)); then
       IFS=, read -r -a medlemmer <<<"${kretsmedlemmer[kd2]}"
@@ -37,8 +45,14 @@ while IFS= read -r avstand; do
       done
       kretsmedlemmer[kd1]+=",${kretsmedlemmer[kd2]}"
       kretsmedlemmer[kd2]=""
+      antallkretser=$((antallkretser - 1))
     fi
   fi
+  printf "%6s %4s %4s\n" "${teller}" "${antallkretser}" "${punkterikretser}"
+  if ((antallkretser == 1 && punkterikretser == allepunkter)); then
+    break
+  fi
+  teller=$((teller + 1))
 done < <(
   {
     for ((i1 = 0; i1 < ${#punkter[@]} - 1; i1++)); do
@@ -51,11 +65,11 @@ done < <(
         echo "$((x * x + y * y + z * z)),${i1},${i2}"
       done
     done
-  } | sort -t, -k1,1n | sed -n "1,${antall}p"
+  } | sort -t, -k1,1n
 )
 
-faktor=1
-while read -r -a data; do
-  faktor=$((faktor * data[0]))
-done < <(printf "%s\n" "${kretsmedlem[@]}" | sort | uniq -c | sort -rn | grep -v -- '-1' | sed -n "1,3p")
-echo "${faktor}"
+echo "${avstand}"
+IFS=, read -r -a data <<<"${avstand}"
+echo "${punkter[data[1]]}"
+echo "${punkter[data[2]]}"
+echo "$(($(cut -d, -f1 <<<"${punkter[data[1]]}") * $(cut -d, -f1 <<<"${punkter[data[2]]}")))"
