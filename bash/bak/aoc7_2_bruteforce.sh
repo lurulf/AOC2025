@@ -2,27 +2,27 @@
 # shellcheck disable=SC2312
 set -eufo pipefail
 
-inndatafil="./input_aoc7.txt"
-
+mapfile -t manifold <input_aoc7.txt
+startx=0
+linje="${manifold[0]}"
 declare -a straaler
 declare -a forrigestraaler
 declare -a tomstraaler
-linje="$(head -1 "${inndatafil}")"
 for ((t = 0; t < ${#linje}; t++)); do
   if [[ ${linje:t:1} == "S" ]]; then
     startx="${t}"
   fi
+  straaler[t]=0
   tomstraaler[t]=0
 done
 
-straaler=("${tomstraaler[@]}")
 straaler[startx]=1
-sluttx="${startx}"
 
-while IFS= read -r linje; do
+for ((l = 1; l < ${#manifold}; l++)); do
+  linje="${manifold[l]}"
   forrigestraaler=("${straaler[@]}")
   straaler=("${tomstraaler[@]}")
-  for ((t = startx; t <= sluttx; t++)); do
+  for ((t = 0; t < ${#linje}; t++)); do
     case "${linje:t:1}" in
       ".")
         straaler[t]="$((straaler[t] + forrigestraaler[t]))"
@@ -34,16 +34,10 @@ while IFS= read -r linje; do
       *) ;;
     esac
   done
-  if [[ ${linje:startx:1} == "^" ]]; then
-    startx=$((startx - 1))
-  fi
-  if [[ ${linje:sluttx:1} == "^" ]]; then
-    sluttx=$((sluttx + 1))
-  fi
-done < <(grep '\^' "${inndatafil}")
+done
 
 sum=0
-for ((t = 0; t < ${#straaler[@]}; t++)); do
+for ((t = 0; t < ${#linje}; t++)); do
   sum=$((sum + straaler[t]))
 done
 
