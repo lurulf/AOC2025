@@ -54,8 +54,8 @@ done < <(
   } | sort -t, -k1,1n | sed -n "1,${antall}p"
 )
 
-faktor=1
+produkt=1
 while read -r -a data; do
-  faktor=$((faktor * data[0]))
+  produkt=$((produkt * data[0]))
 done < <(printf "%s\n" "${kretsmedlem[@]}" | sort | uniq -c | sort -rn | grep -v -- '-1' | sed -n "1,3p")
-echo "${faktor}"
+echo "${produkt}"
